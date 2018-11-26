@@ -23,3 +23,5 @@
  */
 
 $string['pluginname'] = 'My nth Moodle plugin';
+$string['hello'] = 'Hello world';
+$string['course'] = 'The course id is {$a}';
