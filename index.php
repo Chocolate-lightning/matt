@@ -28,7 +28,7 @@ $PAGE->set_pagelayout('report');
 $PAGE->set_title('Hello to the matt list');
 $PAGE->set_heading(get_string('pluginname', 'tool_matt'));
 
-$id = optional_param('id', 0, PARAM_INT);
+$id = required_param('id', PARAM_INT);
 
 echo $OUTPUT->header();
 
