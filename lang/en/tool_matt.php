@@ -25,3 +25,6 @@
 $string['pluginname'] = 'My nth Moodle plugin';
 $string['hello'] = 'Hello world';
 $string['course'] = 'The course id is {$a}';
+
+$string['matt:edit'] = 'Manipulate the page';
+$string['matt:view'] = 'View the page';

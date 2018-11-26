@@ -37,9 +37,11 @@ defined('MOODLE_INTERNAL') || die();
 
 
 function tool_matt_extend_navigation_course($navigation, $course, $context) {
+    require_capability('tool/matt:view', $context);
+
     $feedback = $navigation->add(get_string('pluginname', 'tool_matt'));
     $url = new moodle_url('/admin/tool/matt/index.php', array('id' => $course->id));
     $feedback->add(get_string('view', 'core'), $url,
-            navigation_node::TYPE_SETTING, null, null, new pix_icon('i/report', ''));
+        navigation_node::TYPE_SETTING, null, null, new pix_icon('i/report', ''));
 
 }

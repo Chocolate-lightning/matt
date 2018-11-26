@@ -30,6 +30,12 @@ $PAGE->set_heading(get_string('pluginname', 'tool_matt'));
 
 $id = required_param('id', PARAM_INT);
 
+require_login($id);
+
+$context = context_course::instance($id);
+
+require_capability('tool/matt:view', $context);
+
 echo $OUTPUT->header();
 
 echo html_writer::tag('p', get_string('hello', 'tool_matt'));
