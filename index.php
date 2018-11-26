@@ -39,3 +39,6 @@ echo html_writer::tag('p', get_string('course', 'tool_matt', $id));
 $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 
 echo html_writer::div($course->summary);
+
+$table = new \tool_matt\output\tool_matt_table($id);
+$table->out(20, true);
