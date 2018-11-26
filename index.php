@@ -15,13 +15,23 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for tool_matt.
- *
  * @package tool_matt
  * @copyright 2018 Mathew May mathew@moodle.com
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'My nth Moodle plugin';
-$string['hello'] = 'Hello world';
-$string['course'] = 'The course id is {$a}';
+require_once(__DIR__ . '/../../../config.php');
+$url = new moodle_url('/admin/tool/matt/index.php');
+$PAGE->set_context(context_system::instance());
+$PAGE->set_url($url);
+$PAGE->set_pagelayout('report');
+$PAGE->set_title('Hello to the matt list');
+$PAGE->set_heading(get_string('pluginname', 'tool_matt'));
+
+$id = optional_param('id', 0, PARAM_INT);
+
+echo $OUTPUT->header();
+
+echo html_writer::tag('p', get_string('hello', 'tool_matt'));
+
+echo html_writer::tag('p', get_string('course', 'tool_matt', $id));
