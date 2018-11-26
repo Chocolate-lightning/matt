@@ -35,3 +35,7 @@ echo $OUTPUT->header();
 echo html_writer::tag('p', get_string('hello', 'tool_matt'));
 
 echo html_writer::tag('p', get_string('course', 'tool_matt', $id));
+
+$course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
+
+echo html_writer::div($course->summary);
