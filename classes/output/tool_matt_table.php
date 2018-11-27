@@ -25,8 +25,6 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/tablelib.php');
 
-use html_writer;
-use moodle_url;
 use table_sql;
 
 /**
@@ -38,7 +36,6 @@ class tool_matt_table extends table_sql {
 
     /** @var context The context. */
     protected $context;
-
 
     /**
      * Sets up the table.
@@ -62,6 +59,10 @@ class tool_matt_table extends table_sql {
         $headers[] = get_string('created', 'question');
         $columns[] = 'timemodified';
         $headers[] = get_string('modified');
+        // TODO lang string
+        $columns[] = 'modify';
+        $headers[] = 'Modify';
+
         $this->define_columns($columns);
         $this->define_headers($headers);
 
@@ -100,6 +101,12 @@ class tool_matt_table extends table_sql {
             return get_string('no');
         }
     }
+
+    public function col_modify($values) {
+        $url = new \moodle_url('/admin/tool/matt/edit.php', ['id' => $values->id]);
+        return \html_writer::link($url, 'Modify');
+    }
+
     /**
      * Define table configs.
      */
@@ -109,7 +116,6 @@ class tool_matt_table extends table_sql {
         $this->pageable(true);
         $this->no_sorting('actions');
     }
-
 
     /**
      * Override the default implementation to set a decent heading level.

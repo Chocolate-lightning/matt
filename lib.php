@@ -22,26 +22,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-/*function tool_matt_extend_navigation_course(navigation_node $parentnode, stdClass $course, context_course $context){
-    global $CFG;
-
-    $id = $context->instanceid;
-    $urltext = 'MATT';
-    $url = new moodle_url($CFG->wwwroot . '/grade/report/grader/index.php', array('id'=>1));
-    //print_object($parentnode);
-    $coursesettingsnode = $parentnode->find('courseadmin', null);   // 'courseadmin' is the menu key
-    print_object($coursesettingsnode);
-    $node = $coursesettingsnode->create($urltext, $url, navigation_node::NODETYPE_LEAF, null, 'gradebook',  new pix_icon('i/report', 'grades'));
-    $coursesettingsnode->add_node($node,  'gradebooksetup'); //'gradebooksetup' is an where you put the link before
-    }*/
-
-
 function tool_matt_extend_navigation_course($navigation, $course, $context) {
     require_capability('tool/matt:view', $context);
 
     $feedback = $navigation->add(get_string('pluginname', 'tool_matt'));
-    $url = new moodle_url('/admin/tool/matt/index.php', array('id' => $course->id));
+    $url = new moodle_url('/admin/tool/matt/index.php', array('courseid' => $course->id));
     $feedback->add(get_string('view', 'core'), $url,
         navigation_node::TYPE_SETTING, null, null, new pix_icon('i/report', ''));
-
 }

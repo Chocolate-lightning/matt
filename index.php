@@ -28,11 +28,11 @@ $PAGE->set_pagelayout('report');
 $PAGE->set_title('Hello to the matt list');
 $PAGE->set_heading(get_string('pluginname', 'tool_matt'));
 
-$id = required_param('id', PARAM_INT);
+$courseid = required_param('courseid', PARAM_INT);
 
-require_login($id);
+require_login($courseid);
 
-$context = context_course::instance($id);
+$context = context_course::instance($courseid);
 
 require_capability('tool/matt:view', $context);
 
@@ -40,11 +40,19 @@ echo $OUTPUT->header();
 
 echo html_writer::tag('p', get_string('hello', 'tool_matt'));
 
-echo html_writer::tag('p', get_string('course', 'tool_matt', $id));
+echo html_writer::tag('p', get_string('course', 'tool_matt', $courseid));
 
-$course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 
 echo html_writer::div($course->summary);
 
-$table = new \tool_matt\output\tool_matt_table($id);
+$table = new \tool_matt\output\tool_matt_table($courseid);
 $table->out(20, true);
+
+if (has_capability('tool/matt:edit', $context, $USER)) {
+    $editurl = new moodle_url('/admin/tool/matt/edit.php', ['courseid' => $courseid]);
+    // TODO lang string
+    echo html_writer::link($editurl, 'Edit this course');
+}
+
+echo $OUTPUT->footer();
