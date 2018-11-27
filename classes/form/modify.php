@@ -31,10 +31,10 @@ class modify extends \moodleform {
         global $COURSE;
         $form = $this->_form;
 
-        $form->addElement('text', 'name', 'Name');
+        $form->addElement('text', 'name', get_string('name', 'tool_matt'));
         $form->setType('name', PARAM_ALPHANUM);
 
-        $form->addElement('advcheckbox', 'completed', 'Completed', null, array(0, 1));
+        $form->addElement('advcheckbox', 'completed', get_string('completed', 'tool_matt'), null, array(0, 1));
 
         $form->addElement('hidden', 'courseid');
         $form->setType('courseid', PARAM_INT);
@@ -43,7 +43,7 @@ class modify extends \moodleform {
         $this->add_action_buttons();
     }
 
-    function validation($data, $files) {
+    public function validation($data, $files) {
         return array();
     }
 }

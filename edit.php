@@ -33,7 +33,7 @@ $PAGE->set_heading(get_string('pluginname', 'tool_matt'));
 
 $id = optional_param('id', 0, PARAM_INT);
 
-if($id == 0) {
+if ($id == 0) {
     $courseid = required_param('courseid', PARAM_INT);
 } else {
     $record = $DB->get_record('tool_matt', ['id' => $id]);
@@ -56,15 +56,16 @@ echo $OUTPUT->header();
 
 $mform = new \tool_matt\form\modify();
 
-if($id != 0) {
+if ($id != 0) {
     $mform->set_data($obj);
 }
 
-//Form processing and displaying is done here
+// Form processing and displaying is done here.
 if ($mform->is_cancelled()) {
-    //Handle form cancel operation, if cancel button is present on form.
+    // Handle form cancel operation, if cancel button is present on form.
+    return;
 } else if ($fromform = $mform->get_data()) {
-    //In this case you process validated data. $mform->get_data() returns data posted in form.
+    // In this case you process validated data. $mform->get_data() returns data posted in form.
 
     $dataobj = $mform->get_data();
 
@@ -72,13 +73,13 @@ if ($mform->is_cancelled()) {
 
     $found = false;
     foreach ($courserecords as $courserecord) {
-        if(strtolower($courserecord->name) === strtolower($dataobj->name)) {
+        if (strtolower($courserecord->name) === strtolower($dataobj->name)) {
             $record = $courserecord;
             $found = true;
         }
     }
 
-    if($found) {
+    if ($found) {
         $record->completed = $dataobj->completed;
         $record->timemodified = time();
         $DB->update_record('tool_matt', $record);

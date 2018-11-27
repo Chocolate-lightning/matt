@@ -59,9 +59,8 @@ class tool_matt_table extends table_sql {
         $headers[] = get_string('created', 'question');
         $columns[] = 'timemodified';
         $headers[] = get_string('modified');
-        // TODO lang string
         $columns[] = 'modify';
-        $headers[] = 'Modify';
+        $headers[] = get_string('modify', 'tool_matt');
 
         $this->define_columns($columns);
         $this->define_headers($headers);
@@ -104,7 +103,7 @@ class tool_matt_table extends table_sql {
 
     public function col_modify($values) {
         $url = new \moodle_url('/admin/tool/matt/edit.php', ['id' => $values->id]);
-        return \html_writer::link($url, 'Modify');
+        return \html_writer::link($url, get_string('modify', 'tool_matt'));
     }
 
     /**

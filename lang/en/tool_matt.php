@@ -28,3 +28,8 @@ $string['course'] = 'The course id is {$a}';
 
 $string['matt:edit'] = 'Manipulate the page';
 $string['matt:view'] = 'View the page';
+
+$string['editentry'] = 'Edit this entry';
+$string['name'] = 'Name';
+$string['completed'] = 'Completed';
+$string['modify'] = 'Modify';
