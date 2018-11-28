@@ -40,7 +40,7 @@ global $CFG;
 
 class tool_matt_simple_testcase extends advanced_testcase {
     public function test_adding() {
-        $this->assertEquals(3, 1+2);
+        $this->assertEquals(3, 1 + 2);
     }
 
     public function test_deleting() {

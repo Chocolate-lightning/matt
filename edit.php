@@ -21,6 +21,7 @@
  */
 
 require_once(__DIR__ . '/../../../config.php');
+require_once($CFG->dirroot . '/' . $CFG->admin . '/tool/matt/locallib.php');
 
 global $DB;
 
@@ -60,6 +61,7 @@ if ($id != 0) {
 }
 
 // Form processing and displaying is done here.
+
 if ($mform->is_cancelled()) {
     // Handle form cancel operation, if cancel button is present on form.
     return;
@@ -68,29 +70,8 @@ if ($mform->is_cancelled()) {
 
     $dataobj = $mform->get_data();
 
-    $courserecords = $DB->get_records('tool_matt', ['courseid' => $dataobj->courseid]);
+    tool_matt::upsert($dataobj);
 
-    $found = false;
-    foreach ($courserecords as $courserecord) {
-        if (strtolower($courserecord->name) === strtolower($dataobj->name)) {
-            $record = $courserecord;
-            $found = true;
-        }
-    }
-
-    if ($found) {
-        $record->completed = $dataobj->completed;
-        $record->timemodified = time();
-        $DB->update_record('tool_matt', $record);
-    } else {
-        $insertobj = new stdClass();
-        $insertobj->name = $dataobj->name;
-        $insertobj->courseid = $dataobj->courseid;
-        $insertobj->completed = $dataobj->completed;
-        $insertobj->timecreated = time();
-        $insertobj->timemodified = time();
-        $DB->insert_record('tool_matt', $insertobj);
-    }
     redirect(new moodle_url('/admin/tool/matt/index.php', ['courseid' => $dataobj->courseid]));
 
 } else {
