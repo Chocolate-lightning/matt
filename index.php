@@ -28,6 +28,16 @@ $PAGE->set_pagelayout('report');
 $PAGE->set_title('Hello to the matt list');
 $PAGE->set_heading(get_string('pluginname', 'tool_matt'));
 
+if ($deleteid = optional_param('delete', null, PARAM_INT)) {
+    $record = $DB->get_record('tool_matt', ['id' => $deleteid], '*', MUST_EXIST);
+    require_login(get_course($record->courseid));
+    require_capability('tool/matt:edit', context_course::instance($record->courseid));
+    if (confirm_sesskey() == true) {
+        $DB->delete_records('tool_matt', ['id' => $deleteid]);
+    }
+    redirect(new moodle_url('/admin/tool/matt/index.php', ['courseid' => $record->courseid]));
+}
+
 $courseid = required_param('courseid', PARAM_INT);
 
 require_login($courseid);

@@ -52,7 +52,6 @@ $context = context_course::instance($courseid);
 
 require_capability('tool/matt:edit', $context);
 
-echo $OUTPUT->header();
 
 $mform = new \tool_matt\form\modify();
 
@@ -92,6 +91,7 @@ if ($mform->is_cancelled()) {
         $insertobj->timemodified = time();
         $DB->insert_record('tool_matt', $insertobj);
     }
+    redirect(new moodle_url('/admin/tool/matt/index.php', ['courseid' => $dataobj->courseid]));
 
 } else {
     // This branch is executed if the form is submitted but the data doesn't validate and the form should be redisplayed
@@ -100,7 +100,10 @@ if ($mform->is_cancelled()) {
     // Set default data (if any).
     $mform->set_data($mform);
     // Displays the form.
+    echo $OUTPUT->header();
+
     $mform->display();
+
+    echo $OUTPUT->footer();
 }
 
-echo $OUTPUT->footer();

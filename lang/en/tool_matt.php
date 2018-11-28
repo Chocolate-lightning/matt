@@ -33,3 +33,6 @@ $string['editentry'] = 'Edit this entry';
 $string['name'] = 'Name';
 $string['completed'] = 'Completed';
 $string['modify'] = 'Modify';
+$string['delete'] = 'Delete';
+
+$string['editentrytitle'] = 'Edit entry {$a}';

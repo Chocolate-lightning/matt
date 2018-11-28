@@ -61,6 +61,8 @@ class tool_matt_table extends table_sql {
         $headers[] = get_string('modified');
         $columns[] = 'modify';
         $headers[] = get_string('modify', 'tool_matt');
+        $columns[] = 'delete';
+        $headers[] = get_string('delete', 'tool_matt');
 
         $this->define_columns($columns);
         $this->define_headers($headers);
@@ -103,7 +105,13 @@ class tool_matt_table extends table_sql {
 
     public function col_modify($values) {
         $url = new \moodle_url('/admin/tool/matt/edit.php', ['id' => $values->id]);
-        return \html_writer::link($url, get_string('modify', 'tool_matt'));
+        return \html_writer::link($url, get_string('edit'),
+            ['title' => get_string('editentrytitle', 'tool_matt', format_string($values->name))]);
+    }
+
+    public function col_delete($values) {
+        $url = new \moodle_url('/admin/tool/matt/index.php', ['delete' => $values->id, 'sesskey' => sesskey()]);
+        return \html_writer::link($url, get_string('delete', 'tool_matt'));
     }
 
     /**
