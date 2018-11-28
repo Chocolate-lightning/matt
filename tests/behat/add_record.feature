@@ -1,5 +1,5 @@
 @tool @tool_matt
-Feature: Backup user data
+Feature: Add and manage records in tool_matt
   As a teacher
   I want to add a record
   So that I can view the record later
@@ -22,7 +22,17 @@ Feature: Backup user data
     Given I log in as "teacher1"
     And I am on "Course 1" course homepage
     And I navigate to "My nth Moodle plugin > View" in current page administration
-    When I press "Edit this entry"
+    When I press "tool_matt_edity"
+    Then the field "name" matches value ""
+    #Then "Quiz 1" row "Grade" column of "user-grade" table should contain "5"
+    #And "Quiz 1" row "Percentage" column of "user-grade" table should contain "50"
+
+  @javascript
+  Scenario: Add a record to the database
+    Given I log in as "teacher1"
+    And I am on "Course 1" course homepage
+    And I navigate to "My nth Moodle plugin > View" in current page administration
+    When I press "id_tool_matt_edity"
     Then the field "name" matches value ""
     #Then "Quiz 1" row "Grade" column of "user-grade" table should contain "5"
     #And "Quiz 1" row "Percentage" column of "user-grade" table should contain "50"
