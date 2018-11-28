@@ -18,34 +18,39 @@ Feature: Add and manage records in tool_matt
       | student1 | C1 | student |
 
   @javascript
+  Scenario: View the edit page
+    Given I log in as "teacher1"
+    And I am on "Course 1" course homepage
+    And I navigate to "My nth Moodle plugin > View" in current page administration
+    When I click on "Edit this entry" "link"
+    Then the field "name" matches value ""
+
+  @javascript
   Scenario: Add a record to the database
     Given I log in as "teacher1"
     And I am on "Course 1" course homepage
     And I navigate to "My nth Moodle plugin > View" in current page administration
-    #When I press "tool_matt_edit"
-    When I click on "tool_matt_edit" "link"
-    Then the field "name" matches value ""
-    #Then "Quiz 1" row "Grade" column of "user-grade" table should contain "5"
-    #And "Quiz 1" row "Percentage" column of "user-grade" table should contain "50"
+    And I click on "Edit this entry" "link"
+    And the field "name" matches value ""
+    And I set the field "name" to "test"
+    And I press "id_submitbutton"
+    And I wait "10" seconds
+    Then I should see "test" in the "generaltable" "table"
 
   @javascript
-  Scenario: Add a record to the database2
+  Scenario: Add a record and then edit it
     Given I log in as "teacher1"
     And I am on "Course 1" course homepage
     And I navigate to "My nth Moodle plugin > View" in current page administration
-    #When I press "id_tool_matt_edit"
-    When I click on "tool_matt_edit" "link"
-    Then the field "name" matches value ""
-    #Then "Quiz 1" row "Grade" column of "user-grade" table should contain "5"
-    #And "Quiz 1" row "Percentage" column of "user-grade" table should contain "50"
-
-  @javascript
-  Scenario: Add a record to the database3
-    Given I log in as "teacher1"
-    And I am on "Course 1" course homepage
-    And I navigate to "My nth Moodle plugin > View" in current page administration
-    #When I press "id_tool_matt_edit"
-    When I click on "Edit this entry" "link"
-    Then the field "name" matches value ""
-    #Then "Quiz 1" row "Grade" column of "user-grade" table should contain "5"
-    #And "Quiz 1" row "Percentage" column of "user-grade" table should contain "50"
+    And I click on "Edit this entry" "link"
+    And the field "name" matches value ""
+    And I set the field "name" to "test"
+    And I press "id_submitbutton"
+    And I wait "10" seconds
+    And I should see "test" in the "generaltable" "table"
+    And I click on "Edit" "link"
+    And the field "name" matches value "test"
+    And I set the field "name" to "test2"
+    And I press "id_submitbutton"
+    And I wait "10" seconds
+    Then I should see "test2" in the "generaltable" "table"
