@@ -30,6 +30,7 @@ $capabilities = array(
         'riskbitmask' => RISK_PERSONAL,
         'contextlevel' => CONTEXT_COURSE,
         'archetypes' => [
+            'guest' => CAP_ALLOW,
             'student' => CAP_ALLOW,
             'teacher' => CAP_ALLOW,
             'editingteacher' => CAP_ALLOW,

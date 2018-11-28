@@ -61,7 +61,7 @@ $table->out(20, true);
 
 if (has_capability('tool/matt:edit', $context, $USER)) {
     $editurl = new moodle_url('/admin/tool/matt/edit.php', ['courseid' => $courseid]);
-    echo html_writer::link($editurl, get_string('editentry', 'tool_matt'));
+    echo html_writer::link($editurl, get_string('editentry', 'tool_matt'), ['id' => 'tool_matt_edit']);
 }
 
 echo $OUTPUT->footer();
