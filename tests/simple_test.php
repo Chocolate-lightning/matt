@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 global $CFG;
-
+require_once($CFG->dirroot . '/' . $CFG->admin .'/tool/matt/locallib.php');
 
 /**
  * Tool Matt tests.
@@ -39,19 +39,27 @@ global $CFG;
  */
 
 class tool_matt_simple_testcase extends advanced_testcase {
-    public function test_adding() {
-        $this->assertEquals(3, 1 + 2);
-    }
-
-    public function test_deleting() {
+    public function test_upsert() {
         global $DB;
         $this->resetAfterTest(true);
-        $DB->delete_records('user');
-        $this->assertEmpty($DB->get_records('user'));
-    }
 
-    public function test_user_table_was_reset() {
-        global $DB;
-        $this->assertEquals(2, $DB->count_records('user', array()));
+        $course = $this->getDataGenerator()->create_course();
+
+        $testobj = new stdClass();
+        $testobj->name = 'test';
+        $testobj->courseid = $course->id;
+        $testobj->completed = true;
+        tool_matt::upsert($testobj);
+
+        // Check if the record exists.
+        $this->assertNotEmpty($DB->get_record('tool_matt', ['courseid' => $course->id]));
+
+        sleep(1);
+        $testobj->completed = true;
+        tool_matt::upsert($testobj);
+        $record = $DB->get_record('tool_matt', ['courseid' => $course->id]);
+
+        // Check if the record was updated by checking the time modified field.
+        $this->assertNotSame($record->timecreated, $record->timemodified);
     }
 }

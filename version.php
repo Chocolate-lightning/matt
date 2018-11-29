@@ -22,7 +22,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2018112801;
+$plugin->version = 2018112900;
 $plugin->requires  = 2018051703;
 $plugin->component = 'tool_matt';
-$plugin->release = '1.9';
+$plugin->release = '2.0';
