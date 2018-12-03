@@ -106,12 +106,12 @@ class tool_matt_table extends table_sql {
     public function col_modify($values) {
         $url = new \moodle_url('/admin/tool/matt/edit.php', ['id' => $values->id]);
         return \html_writer::link($url, get_string('edit'),
-            ['title' => get_string('editentrytitle', 'tool_matt', format_string($values->name))]);
+            ['title' => get_string('editentrytitle', 'tool_matt', format_string($values->name)), 'class' => 'edit']);
     }
 
     public function col_delete($values) {
-        $url = new \moodle_url('/admin/tool/matt/index.php', ['delete' => $values->id, 'sesskey' => sesskey()]);
-        return \html_writer::link($url, get_string('delete', 'tool_matt'));
+        $url = new \moodle_url('/admin/tool/matt/edit.php', ['delete' => $values->id, 'sesskey' => sesskey()]);
+        return \html_writer::link($url, get_string('delete', 'tool_matt'), ['class' => 'delete']);
     }
 
     /**

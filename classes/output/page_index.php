@@ -62,8 +62,6 @@ class page_index implements renderable, templatable {
         $this->userid = $USER->id;
 
         $this->prepare_global_page_access();
-
-        \tool_matt::delete();
     }
 
     /**

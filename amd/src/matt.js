@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,24 +16,20 @@
 /**
  * @package tool_matt
  * @copyright 2018 Mathew May {@link http://mathew.solutions}
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+define(['jquery'], function($) {
 
-require_once(__DIR__ . '/../../../config.php');
-
-use tool_matt\output\page_agreedocs;
-
-$courseid = required_param('courseid', PARAM_INT);
-
-$PAGE->set_context(\context_course::instance($courseid));
-//$PAGE->requires->js_call_amd('tool_matt/matt', 'init');
-$output = $PAGE->get_renderer('tool_matt');
-$outputpage = new \tool_matt\output\page_index($courseid);
-
-echo $output->header();
-echo $output->render($outputpage);
-
-$table = new \tool_matt\output\tool_matt_table($courseid);
-$table->out(20, true);
-
-echo $output->footer();
+    return {
+        init: function() {
+            $( ".delete" ).click(function() {
+                var result = confirm("Want to delete this record?");
+                if (result) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        }
+    };
+});

@@ -25,6 +25,8 @@ require_once($CFG->dirroot . '/' . $CFG->admin . '/tool/matt/locallib.php');
 
 global $DB;
 
+tool_matt::delete();
+
 $url = new moodle_url('/admin/tool/matt/edit.php');
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url($url);
@@ -52,7 +54,6 @@ require_login($courseid);
 $context = context_course::instance($courseid);
 
 require_capability('tool/matt:edit', $context);
-
 
 $mform = new \tool_matt\form\modify();
 
