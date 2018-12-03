@@ -16,45 +16,23 @@
 
 /**
  * @package tool_matt
- * @copyright 2018 Mathew May mathew@moodle.com
+ * @copyright 2018 Mathew May {@link http://mathew.solutions}
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once(__DIR__ . '/../../../config.php');
-require_once($CFG->dirroot . '/' . $CFG->admin . '/tool/matt/locallib.php');
-$url = new moodle_url('/admin/tool/matt/index.php');
-$PAGE->set_context(context_system::instance());
-$PAGE->set_url($url);
-$PAGE->set_pagelayout('report');
-$PAGE->set_title('Hello to the matt list');
-$PAGE->set_heading(get_string('pluginname', 'tool_matt'));
 
-tool_matt::delete();
+use tool_matt\output\page_agreedocs;
 
 $courseid = required_param('courseid', PARAM_INT);
 
-require_login($courseid);
+$output = $PAGE->get_renderer('tool_matt');
+$outputpage = new \tool_matt\output\page_index($courseid);
 
-$context = context_course::instance($courseid);
-
-require_capability('tool/matt:view', $context);
-
-echo $OUTPUT->header();
-
-echo html_writer::tag('p', get_string('hello', 'tool_matt'));
-
-echo html_writer::tag('p', get_string('course', 'tool_matt', $courseid));
-
-$course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
-
-echo html_writer::div($course->summary);
+echo $output->header();
+echo $output->render($outputpage);
 
 $table = new \tool_matt\output\tool_matt_table($courseid);
 $table->out(20, true);
 
-if (has_capability('tool/matt:edit', $context, $USER)) {
-    $editurl = new moodle_url('/admin/tool/matt/edit.php', ['courseid' => $courseid]);
-    echo html_writer::link($editurl, get_string('editentry', 'tool_matt'), ['id' => 'tool_matt_edit']);
-}
-
-echo $OUTPUT->footer();
+echo $output->footer();

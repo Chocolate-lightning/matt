@@ -16,13 +16,13 @@
 
 /**
  * @package   tool_matt
- * @copyright 2018, Mathew May mathew@moodle.com
+ * @copyright 2018 Mathew May {@link http://mathew.solutions}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2018112900;
+$plugin->version = 2018120300;
 $plugin->requires  = 2018051703;
 $plugin->component = 'tool_matt';
-$plugin->release = '2.0';
+$plugin->release = '2.1';

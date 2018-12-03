@@ -18,7 +18,7 @@
  * Plugin capabilities.
  *
  * @package   tool_matt
- * @copyright 2018 Mathew May mathew@moodle.com
+ * @copyright 2018 Mathew May {@link http://mathew.solutions}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
