@@ -26,6 +26,7 @@ use tool_matt\output\page_agreedocs;
 
 $courseid = required_param('courseid', PARAM_INT);
 
+$PAGE->set_context(\context_course::instance($courseid));
 $output = $PAGE->get_renderer('tool_matt');
 $outputpage = new \tool_matt\output\page_index($courseid);
 

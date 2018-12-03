@@ -76,7 +76,6 @@ class page_index implements renderable, templatable {
             'courseid' => $this->courseid,
         ]);
 
-        $PAGE->set_context(\context_course::instance($this->courseid));
         $PAGE->set_pagelayout('standard');
         $PAGE->set_url($myurl);
         $PAGE->set_title('Hello to the matt list');
@@ -113,7 +112,7 @@ class page_index implements renderable, templatable {
             $data->edit = html_writer::link($editurl, get_string('editentry', 'tool_matt'), ['id' => 'tool_matt_edit']);
         }
 
-        $data-> pluginbaseurl= (new moodle_url('/admin/tool/matt', [
+        $data->pluginbaseurl = (new moodle_url('/admin/tool/matt', [
             'courseid' => $this->courseid,
         ]))->out(false);
 
