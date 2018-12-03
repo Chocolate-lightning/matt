@@ -62,15 +62,13 @@ class page_index implements renderable, templatable {
         $this->userid = $USER->id;
 
         $this->prepare_global_page_access();
-
-        \tool_matt::delete();
     }
 
     /**
      * Sets up the global $PAGE and performs the access checks.
      */
     protected function prepare_global_page_access() {
-        global $PAGE, $SITE, $USER;
+        global $PAGE;
 
         $myurl = new moodle_url('/admin/tool/matt/index.php', [
             'courseid' => $this->courseid,
@@ -93,7 +91,7 @@ class page_index implements renderable, templatable {
      * @return \stdClass
      */
     public function export_for_template(renderer_base $output) {
-        global $CFG, $DB;
+        global $DB;
 
         $context = \context_course::instance($this->courseid);
 

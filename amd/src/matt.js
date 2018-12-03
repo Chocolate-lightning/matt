@@ -1,4 +1,3 @@
-<?php
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,14 +14,22 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   tool_matt
+ * @package tool_matt
  * @copyright 2018 Mathew May {@link http://mathew.solutions}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+define(['jquery'], function($) {
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version = 2018120301;
-$plugin->requires  = 2018051703;
-$plugin->component = 'tool_matt';
-$plugin->release = '2.2';
+    return {
+        init: function() {
+            $( ".delete" ).click(function() {
+                var result = confirm("Want to delete this record?");
+                if (result) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        }
+    };
+});
