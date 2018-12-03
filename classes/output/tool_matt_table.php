@@ -16,7 +16,7 @@
 
 /**
  * @package    tool_matt
- * @copyright  2018 Mathew May
+ * @copyright  2018 Mathew May {@link http://mathew.solutions}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -29,7 +29,7 @@ use table_sql;
 
 /**
  * @package    tool_matt
- * @copyright  2018 Mathew May
+ * @copyright  2018 Mathew May {@link http://mathew.solutions}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class tool_matt_table extends table_sql {

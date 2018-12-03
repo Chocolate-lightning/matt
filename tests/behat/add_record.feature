@@ -48,7 +48,7 @@ Feature: Add and manage records in tool_matt
     And I press "id_submitbutton"
     And I wait "10" seconds
     And I should see "test" in the "generaltable" "table"
-    And I click on "Edit" "link"
+    And I click on "Edit" "link" in the "generaltable" "table"
     And the field "name" matches value "test"
     And I set the field "name" to "test2"
     And I press "id_submitbutton"
