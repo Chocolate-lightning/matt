@@ -15,14 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   tool_matt
- * @copyright 2018 Mathew May {@link http://mathew.solutions}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * This file defines observers needed by the plugin.
+ *
+ * @package     tool_matt
+ * @copyright   2018 Mathew May {@link http://mathew.solutions}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2018120303;
-$plugin->requires  = 2018051703;
-$plugin->component = 'tool_matt';
-$plugin->release = '2.2';
+$observers = [
+    [
+        'eventname'   => '\tool_matt\event\item_deleted',
+        'callback'    => '\tool_matt\api::item_deleted',
+    ],
+];

@@ -18,7 +18,6 @@
  * Tool Matt locallib.
  *
  * @package    tool_matt
- * @category   phpunit
  * @copyright  2018 Mathew May {@link http://mathew.solutions}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -70,7 +69,12 @@ class tool_matt {
             require_login(get_course($record->courseid));
             require_capability('tool/matt:edit', context_course::instance($record->courseid));
             if (confirm_sesskey() == true) {
-                $DB->delete_records('tool_matt', ['id' => $deleteid]);
+                //$DB->delete_records('tool_matt', ['id' => $deleteid]);
+
+                $context = \context_course::instance($record->courseid);
+                $event = \tool_matt\event\item_deleted::create(array('context' => $context, 'objectid' => 1, 'other' => 1));
+                $event->trigger();
+
             }
             redirect(new moodle_url('/admin/tool/matt/index.php', ['courseid' => $record->courseid]));
         }

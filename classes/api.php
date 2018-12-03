@@ -15,14 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package   tool_matt
- * @copyright 2018 Mathew May {@link http://mathew.solutions}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     tool_matt
+ * @copyright   2018 Mathew May {@link http://mathew.solutions}
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+namespace tool_matt;
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2018120303;
-$plugin->requires  = 2018051703;
-$plugin->component = 'tool_matt';
-$plugin->release = '2.2';
+/**
+ * Provides the API of the matt plugin.
+ *
+ * @package     tool_matt
+ * @copyright   2018 Mathew May {@link http://mathew.solutions}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class api {
+    /**
+     * Create user policy acceptances when the user is created.
+     *
+     * @param \core\event\user_created $event
+     */
+    public static function item_deleted(\tool_matt\event\item_deleted $event) {
+        print_object('Would you like to purchase WINRAR?');
+        print_object($event);
+        die();
+    }
+
+}
