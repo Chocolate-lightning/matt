@@ -27,7 +27,6 @@ use tool_matt\output\page_agreedocs;
 $courseid = required_param('courseid', PARAM_INT);
 
 $PAGE->set_context(\context_course::instance($courseid));
-//$PAGE->requires->js_call_amd('tool_matt/matt', 'init');
 $output = $PAGE->get_renderer('tool_matt');
 $outputpage = new \tool_matt\output\page_index($courseid);
 
