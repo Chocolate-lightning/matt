@@ -69,12 +69,9 @@ class tool_matt {
             require_login(get_course($record->courseid));
             require_capability('tool/matt:edit', context_course::instance($record->courseid));
             if (confirm_sesskey() == true) {
-                //$DB->delete_records('tool_matt', ['id' => $deleteid]);
-
                 $context = \context_course::instance($record->courseid);
-                $event = \tool_matt\event\item_deleted::create(array('context' => $context, 'objectid' => 1, 'other' => 1));
+                $event = \tool_matt\event\item_deleted::create(array('context' => $context, 'objectid' => $deleteid));
                 $event->trigger();
-
             }
             redirect(new moodle_url('/admin/tool/matt/index.php', ['courseid' => $record->courseid]));
         }

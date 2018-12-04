@@ -36,3 +36,6 @@ $string['modify'] = 'Modify';
 $string['delete'] = 'Delete';
 
 $string['editentrytitle'] = 'Edit entry {$a}';
+
+$string['logdelete'] = 'Deleted item';
+$string['logdeletedesc'] = 'An item was deleted';

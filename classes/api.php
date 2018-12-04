@@ -33,14 +33,13 @@ defined('MOODLE_INTERNAL') || die();
  */
 class api {
     /**
-     * Create user policy acceptances when the user is created.
+     * Delete required record since user has requested it.
      *
-     * @param \core\event\user_created $event
+     * @param \tool_matt\event\item_deleted $event
      */
     public static function item_deleted(\tool_matt\event\item_deleted $event) {
-        print_object('Would you like to purchase WINRAR?');
-        print_object($event);
-        die();
+        global $DB;
+        $data = $event->get_data();
+        $DB->delete_records('tool_matt', ['id' => $data['objectid']]);
     }
-
 }

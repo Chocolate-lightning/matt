@@ -48,7 +48,7 @@ class item_deleted extends \core\event\base {
      * @return string
      */
     public static function get_name() {
-        return 'item_deleted';
+        return get_string('logdelete', 'tool_matt');
     }
 
     /**
@@ -56,7 +56,7 @@ class item_deleted extends \core\event\base {
      * @return string
      */
     public function get_description() {
-        return "Item deleted";
+        return get_string('logdeletedesc', 'tool_matt');
     }
 
     /**
