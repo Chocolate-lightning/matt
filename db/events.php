@@ -15,27 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for tool_matt.
+ * This file defines observers needed by the plugin.
  *
- * @package tool_matt
- * @copyright 2018 Mathew May {@link http://mathew.solutions}
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     tool_matt
+ * @copyright   2018 Mathew May {@link http://mathew.solutions}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'My nth Moodle plugin';
-$string['hello'] = 'Hello world';
-$string['course'] = 'The course id is {$a}';
+defined('MOODLE_INTERNAL') || die();
 
-$string['matt:edit'] = 'Manipulate the page';
-$string['matt:view'] = 'View the page';
-
-$string['editentry'] = 'Edit this entry';
-$string['name'] = 'Name';
-$string['completed'] = 'Completed';
-$string['modify'] = 'Modify';
-$string['delete'] = 'Delete';
-
-$string['editentrytitle'] = 'Edit entry {$a}';
-
-$string['logdelete'] = 'Deleted item';
-$string['logdeletedesc'] = 'An item was deleted';
+$observers = [
+    [
+        'eventname'   => '\tool_matt\event\item_deleted',
+        'callback'    => '\tool_matt\api::item_deleted',
+    ],
+];
