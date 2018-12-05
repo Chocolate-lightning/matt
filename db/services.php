@@ -21,29 +21,34 @@
  */
 
 $services = array(
-    'mypluginservice' => array(                                                //the name of the web service
-        'functions' => array ('tool_matt_create_groups', 'tool_matt_delete_records'), //web service functions of this service
-        'requiredcapability' => '',                //if set, the web service user need this capability to access
-        //any function of this service. For example: 'some/capability:specified'
-        'restrictedusers' =>0,                                             //if enabled, the Moodle administrator must link some user to this service
-        //into the administration
-        'enabled'=>1,                                                       //if enabled, the service can be reachable on a default installation
+    // The name of the web service.
+    'mypluginservice' => array(
+        // Web service functions of this service.
+        'functions' => array ('tool_matt_create_groups', 'tool_matt_delete_records'),
+        // If set, the web service user need this capability to access.
+        'requiredcapability' => '',
+        // Any function of this service. For example: 'some/capability:specified'.
+        // If enabled, the Moodle administrator must link some user to this service.
+        'restrictedusers' =>0,
+        // Into the administration.
+        // If enabled, the service can be reachable on a default installation.
+        'enabled'=>1,
     )
 );
 
 $functions = array(
-    'tool_matt_create_groups' => array(         //web service function name
-        'classname'   => 'tool_matt_external',  //class containing the external function
-        'methodname'  => 'create_groups',          //external function name
-        'classpath'   => 'admin/tool/matt/externallib.php',  //file containing the class/external function
-        'description' => 'Creates new groups.',    //human readable description of the web service function
-        'type'        => 'write',                  //database rights of the web service function (read, write)
+    'tool_matt_create_groups' => array(         // Web service function name.
+        'classname'   => 'tool_matt_external',  // Class containing the external function.
+        'methodname'  => 'create_groups',          // External function name.
+        'classpath'   => 'admin/tool/matt/externallib.php',  // File containing the class/external function.
+        'description' => 'Creates new groups.',    // Human readable description of the web service function.
+        'type'        => 'write',                  // Database rights of the web service function (read, write).
     ),
-    'tool_matt_delete_records' => array(         //web service function name
-        'classname'   => 'tool_matt_external',  //class containing the external function
-        'methodname'  => 'delete_records',          //external function name
-        'classpath'   => 'admin/tool/matt/externallib.php',  //file containing the class/external function
-        'description' => 'Delete requested records.',    //human readable description of the web service function
-        'type'        => 'write',                  //database rights of the web service function (read, write)
+    'tool_matt_delete_records' => array(         // Web service function name.
+        'classname'   => 'tool_matt_external',  // Class containing the external function.
+        'methodname'  => 'delete_records',          // External function name.
+        'classpath'   => 'admin/tool/matt/externallib.php',  // File containing the class/external function.
+        'description' => 'Delete requested records.',    // Human readable description of the web service function.
+        'type'        => 'write',                  // Database rights of the web service function (read, write).
     ),
 );

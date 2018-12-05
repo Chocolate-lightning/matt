@@ -63,14 +63,14 @@ class tool_matt_external extends external_api {
      * @param array $groups array of group description arrays (with keys groupname and courseid)
      * @return array of newly created groups
      */
-    public static function create_groups($groups) { //Don't forget to set it as static
+    public static function create_groups($groups) {
         global $CFG, $DB;
         require_once("$CFG->dirroot/group/lib.php");
 
+        $params = self::validate_parameters(self::create_groups_parameters(), array('groups' => $groups));
 
-        $params = self::validate_parameters(self::create_groups_parameters(), array('groups'=>$groups));
-
-        $transaction = $DB->start_delegated_transaction(); //If an exception is thrown in the below code, all DB queries in this code will be rollback.
+        // If an exception is thrown in the below code, all DB queries in this code will be rollback.
+        $transaction = $DB->start_delegated_transaction();
 
         $groups = array();
 
@@ -80,16 +80,16 @@ class tool_matt_external extends external_api {
             if (trim($group->name) == '') {
                 throw new invalid_parameter_exception('Invalid group name');
             }
-            if ($DB->get_record('groups', array('courseid'=>$group->courseid, 'name'=>$group->name))) {
+            if ($DB->get_record('groups', array('courseid' => $group->courseid, 'name' => $group->name))) {
                 throw new invalid_parameter_exception('Group with the same name already exists in the course');
             }
 
-            // now security checks
+            // Now security checks.
             $context = get_context_instance(CONTEXT_COURSE, $group->courseid);
             self::validate_context($context);
             require_capability('moodle/course:managegroups', $context);
 
-            // finally create the group
+            // Finally create the group.
             $group->id = groups_create_group($group, false);
             $groups[] = (array)$group;
         }
@@ -103,7 +103,7 @@ class tool_matt_external extends external_api {
      * Returns description of method parameters
      * @return external_function_parameters
      */
-    public static function create_record_parameters() {
+    public static function delete_records_parameters() {
         return new external_function_parameters(
             array(
                 'records' => new external_multiple_structure(
@@ -117,19 +117,11 @@ class tool_matt_external extends external_api {
         );
     }
 
-    /**
-     * Returns description of method parameters
-     * @return external_function_parameters
-     */
-    public static function create_record_returns() {
-        return new external_function_parameters(
-            array(
-                'records' => new external_multiple_structure(
-                    new external_single_structure(
-                        array(
-                            'recordid' => new external_value(PARAM_INT, 'id of record to delete'),
-                        )
-                    )
+    public static function delete_records_returns() {
+        return new external_multiple_structure(
+            new external_single_structure(
+                array(
+                    'recordid' => new external_value(PARAM_INT, 'id of record to delete'),
                 )
             )
         );
@@ -143,23 +135,20 @@ class tool_matt_external extends external_api {
     public static function delete_records($foo) {
         global $CFG, $DB;
 
-        $params = self::validate_parameters(self::create_record_parameters(), array('records'=>$foo));
+        $params = self::validate_parameters(self::delete_records_parameters(), array('records' => $foo));
 
-
-        $transaction = $DB->start_delegated_transaction(); //If an exception is thrown in the below code, all DB queries in this code will be rollback.
+        // If an exception is thrown in the below code, all DB queries in this code will be rollback.
+        $transaction = $DB->start_delegated_transaction();
 
         $records = array();
 
-        foreach ($params['record'] as $record) {
+        foreach ($params['records'] as $record) {
             $record = (object)$record;
 
             $records[] = (array)$record;
         }
 
         $transaction->allow_commit();
-
-        $a = array();
-        return $a['hit']['hit sir'];
 
         return $records;
     }
