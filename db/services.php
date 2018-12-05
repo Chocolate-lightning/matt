@@ -20,6 +20,8 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 $services = array(
     // The name of the web service.
     'mypluginservice' => array(
@@ -29,10 +31,10 @@ $services = array(
         'requiredcapability' => '',
         // Any function of this service. For example: 'some/capability:specified'.
         // If enabled, the Moodle administrator must link some user to this service.
-        'restrictedusers' =>0,
+        'restrictedusers' => 0,
         // Into the administration.
         // If enabled, the service can be reachable on a default installation.
-        'enabled'=>1,
+        'enabled' => 1,
     )
 );
 

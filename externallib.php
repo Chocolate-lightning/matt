@@ -20,6 +20,8 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 require_once("$CFG->libdir/externallib.php");
 
 class tool_matt_external extends external_api {
@@ -133,7 +135,7 @@ class tool_matt_external extends external_api {
      * @return array of newly created groups
      */
     public static function delete_records($foo) {
-        global $CFG, $DB;
+        global $DB;
 
         $params = self::validate_parameters(self::delete_records_parameters(), array('records' => $foo));
 
@@ -144,6 +146,20 @@ class tool_matt_external extends external_api {
 
         foreach ($params['records'] as $record) {
             $record = (object)$record;
+
+            if (!$DB->record_exists('tool_matt', array('id' => $record->recordid))) {
+                throw new invalid_parameter_exception('Record not found. Did you pass the correct item id?');
+            }
+            
+            $item = $DB->get_record('tool_matt', array('id' => $record->recordid));
+
+            // Now security checks.
+            $context = context_course::instance($item->courseid);
+            self::validate_context($context);
+            require_capability('tool/matt:edit', $context);
+
+            $event = \tool_matt\event\item_deleted::create(array('context' => $context, 'objectid' => $record->recordid));
+            $event->trigger();
 
             $records[] = (array)$record;
         }
