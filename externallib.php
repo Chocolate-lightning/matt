@@ -29,82 +29,6 @@ class tool_matt_external extends external_api {
      * Returns description of method parameters
      * @return external_function_parameters
      */
-    public static function create_groups_parameters() {
-        return new external_function_parameters(
-            array(
-                'groups' => new external_multiple_structure(
-                    new external_single_structure(
-                        array(
-                            'courseid' => new external_value(PARAM_INT, 'id of course'),
-                            'name' => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
-                            'description' => new external_value(PARAM_RAW, 'group description text'),
-                            'enrolmentkey' => new external_value(PARAM_RAW, 'group enrol secret phrase'),
-                        )
-                    )
-                )
-            )
-        );
-    }
-
-    public static function create_groups_returns() {
-        return new external_multiple_structure(
-            new external_single_structure(
-                array(
-                    'id' => new external_value(PARAM_INT, 'group record id'),
-                    'courseid' => new external_value(PARAM_INT, 'id of course'),
-                    'name' => new external_value(PARAM_TEXT, 'multilang compatible name, course unique'),
-                    'description' => new external_value(PARAM_RAW, 'group description text'),
-                    'enrolmentkey' => new external_value(PARAM_RAW, 'group enrol secret phrase'),
-                )
-            )
-        );
-    }
-
-    /**
-     * Create groups
-     * @param array $groups array of group description arrays (with keys groupname and courseid)
-     * @return array of newly created groups
-     */
-    public static function create_groups($groups) {
-        global $CFG, $DB;
-        require_once("$CFG->dirroot/group/lib.php");
-
-        $params = self::validate_parameters(self::create_groups_parameters(), array('groups' => $groups));
-
-        // If an exception is thrown in the below code, all DB queries in this code will be rollback.
-        $transaction = $DB->start_delegated_transaction();
-
-        $groups = array();
-
-        foreach ($params['groups'] as $group) {
-            $group = (object)$group;
-
-            if (trim($group->name) == '') {
-                throw new invalid_parameter_exception('Invalid group name');
-            }
-            if ($DB->get_record('groups', array('courseid' => $group->courseid, 'name' => $group->name))) {
-                throw new invalid_parameter_exception('Group with the same name already exists in the course');
-            }
-
-            // Now security checks.
-            $context = get_context_instance(CONTEXT_COURSE, $group->courseid);
-            self::validate_context($context);
-            require_capability('moodle/course:managegroups', $context);
-
-            // Finally create the group.
-            $group->id = groups_create_group($group, false);
-            $groups[] = (array)$group;
-        }
-
-        $transaction->allow_commit();
-
-        return $groups;
-    }
-
-    /**
-     * Returns description of method parameters
-     * @return external_function_parameters
-     */
     public static function delete_records_parameters() {
         return new external_function_parameters(
             array(
@@ -134,10 +58,10 @@ class tool_matt_external extends external_api {
      * @param array $groups array of group description arrays (with keys groupname and courseid)
      * @return array of newly created groups
      */
-    public static function delete_records($foo) {
+    public static function delete_records($inrecords) {
         global $DB;
 
-        $params = self::validate_parameters(self::delete_records_parameters(), array('records' => $foo));
+        $params = self::validate_parameters(self::delete_records_parameters(), array('records' => $inrecords));
 
         // If an exception is thrown in the below code, all DB queries in this code will be rollback.
         $transaction = $DB->start_delegated_transaction();
@@ -150,7 +74,7 @@ class tool_matt_external extends external_api {
             if (!$DB->record_exists('tool_matt', array('id' => $record->recordid))) {
                 throw new invalid_parameter_exception('Record not found. Did you pass the correct item id?');
             }
-            
+
             $item = $DB->get_record('tool_matt', array('id' => $record->recordid));
 
             // Now security checks.
@@ -167,5 +91,9 @@ class tool_matt_external extends external_api {
         $transaction->allow_commit();
 
         return $records;
+    }
+
+    public static function delete_records_is_allowed_from_ajax() {
+        return true;
     }
 }

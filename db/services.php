@@ -26,7 +26,7 @@ $services = array(
     // The name of the web service.
     'mypluginservice' => array(
         // Web service functions of this service.
-        'functions' => array ('tool_matt_create_groups', 'tool_matt_delete_records'),
+        'functions' => array ('tool_matt_delete_records'),
         // If set, the web service user need this capability to access.
         'requiredcapability' => '',
         // Any function of this service. For example: 'some/capability:specified'.
@@ -39,13 +39,6 @@ $services = array(
 );
 
 $functions = array(
-    'tool_matt_create_groups' => array(         // Web service function name.
-        'classname'   => 'tool_matt_external',  // Class containing the external function.
-        'methodname'  => 'create_groups',          // External function name.
-        'classpath'   => 'admin/tool/matt/externallib.php',  // File containing the class/external function.
-        'description' => 'Creates new groups.',    // Human readable description of the web service function.
-        'type'        => 'write',                  // Database rights of the web service function (read, write).
-    ),
     'tool_matt_delete_records' => array(         // Web service function name.
         'classname'   => 'tool_matt_external',  // Class containing the external function.
         'methodname'  => 'delete_records',          // External function name.

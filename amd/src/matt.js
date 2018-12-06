@@ -18,15 +18,27 @@
  * @copyright 2018 Mathew May {@link http://mathew.solutions}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-define(['jquery'], function($) {
+define(['jquery', 'core/ajax', 'core/templates', 'core/notification'], function($, ajax, templates, notification) {
 
     return {
         init: function() {
             $( ".delete" ).click(function() {
-                var result = confirm("Want to delete this record?");
+                var result = confirm("Want to delete this record??");
                 if (result) {
                     return true;
                 } else {
+                    var info = [];
+                    info[0]['recordid'] = Number(this.getAttribute("data-id"));
+                    var promises = ajax.call([{
+                        methodname: 'tool_matt_delete_records',
+                        args: {records:info}
+                    }]);
+                    promises[0].done(function (data) {
+                        templates.render('tool_matt/page_index', data).done(function (html, js) {
+                            $('region-main').replaceWith(html);
+                            templates.runTemplateJS(js);
+                        }).fail(notification.exception);
+                    }).fail(notification.exception);
                     return false;
                 }
             });
